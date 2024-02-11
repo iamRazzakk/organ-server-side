@@ -33,8 +33,14 @@ async function run() {
       res.send(result);
     });
     app.get("/blogs", async (req, res) => {
-      const result = await blogCollection.find().toArray()
-      res.send(result)
+      const result = await blogCollection.find().toArray();
+      res.send(result);
+    });
+    app.get("/blogs/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new Object(id) };
+      const result = await blogCollection.findOne(filter);
+      res.send(result);
     });
 
     // Connect the client to the server	(optional starting in v4.7)
@@ -58,4 +64,4 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
-// 
+//
